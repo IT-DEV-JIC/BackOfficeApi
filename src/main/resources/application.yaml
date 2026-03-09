@@ -1,0 +1,122 @@
+server:
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:ssl/jicjo.pfx
+    key-store-password: ENC(69MCDVSKX/kIhezOQQ5OJIyqgmNHjQfHqxTLdiPJSiHy7LVoapPE6DvtFe7OD8AN)
+    key-store-type: PKCS12
+
+  tomcat:
+    threads:
+      max: 200
+      min-spare: 50
+    max-connections: 10000
+    accept-count: 200
+    connection-timeout: 20000ms
+    max-http-form-post-size: 20MB
+    max-swallow-size: 20MB
+    background-processor-delay: 30s
+    http2:
+      enabled: true
+  jvm-arguments:
+    - -Xms20g
+    - -Xmx20g
+
+spring:
+  application:
+    name: JicBackOfficePortal
+  devtools:
+    restart:
+      enabled: false
+
+  datasource:
+    driver-class-name: oracle.jdbc.OracleDriver
+    url: jdbc:oracle:thin:@//10.0.41.141:1521/ORCL.JIC.LOCAL
+    username: ENC(0SMFLl+A81CLd3GlM+w7ToILCeTBz3y2NnUjdV7zhYPs5mhPpBtSW4FCC+8WcFvd)
+    password: ENC(ceFKslXn0nb1j5dSpVKYiA9AP4CoH3+VUZFDJ2uugf/xguk8b9vQQpNnRpZcH39K)
+    hikari:
+      connection-timeout: 200000
+      maximum-pool-size: 100
+      minimum-idle: 5
+      idle-timeout: 3000000
+      max-lifetime: 1200000
+      connection-test-query: SELECT 1 FROM DUAL
+      data-source-properties:
+        oracle:
+          jdbc:
+            ReadTimeout: 600000
+            ConnectTimeout: 300000
+
+  jasypt:
+    encryptor:
+      algorithm: PBEWITHHMACSHA512ANDAES_256
+      iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+
+  jdbc:
+    core:
+      JdbcTemplate:
+        methods:
+          - translateException
+          - execute
+          - call
+
+  jpa:
+    hibernate:
+      ddl-auto: none
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+    open-in-view: false
+
+profiles:
+  active: dev
+
+  ai:
+    openai:
+      api-key: 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
+      chat:
+        options:
+          model: gpt-4o-mini
+          temperature: 0.3
+          max-tokens: 500
+
+logging:
+  level:
+    org:
+      springframework:
+        web: DEBUG
+        security: DEBUG
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
+
+  mvc:
+    async:
+      request-timeout: 300000 # 30 seconds
+    servlet:
+      async:
+        timeout: 300000
+
+    session:
+      store-type: redis
+      data:
+        redis:
+          host: banca.jicjo.com
+          port: 6379
+
+encryption:
+  secret:
+    key:
+      aes1: ENC(jpZbLcLF1rE91mRP5vhOhGUL4mkQaiHKnS5qS8WE6nAP5r0zurbD3vv2pkwQB0jIpRiugs1GVo7sSrOMN0SLENXQXzP1IY4Zqzrzsun158yzNrsEagsjdYHnLJkUNkzVb4pCUI/RAbxerNhv5N8AT1LYWXz8guGaBs75tcWHy/QmOR7lF7AzO/Xjzk7AHD1XMkmtp45i6Oo3Im0+E6oc19yWp3yFltX5OnCuBLfOi9s=)
+      aes2: ENC(oBTkWJp0/+maUSUNzOCUBzVpnftjO1PXYdEKIPxL0zX1KKL5d42TqK8GMWO/90kjISvi5TZk9sEqQCNiMaH02gE9xKtsot7e/1LIbX/11to=)
+    default: aes2
