@@ -31,13 +31,13 @@ public class CoreLovsController implements Serializable {
         return ResponseEntity.ok(coreLovsService.findBrnByclntName(clntName));
     }
 
-    @GetMapping("/findPstApplicationWordingsById")
-    public ResponseEntity<List<CoreLovs>> findPstApplicationWordingsById(@RequestParam(required = false) Long pstApwId) {
-        return ResponseEntity.ok(coreLovsService.findPstApplicationWordingsById(pstApwId));
-    }
-
     @GetMapping("/findMpdPolicies")
     public ResponseEntity<List<CoreLovs>> findMpdPolicies() {
         return ResponseEntity.ok(coreLovsService.findMpdPolicies());
+    }
+
+    @GetMapping("/findUsersByclntName")
+    public ResponseEntity<List<CoreLovs>> findUsersByclntName(@RequestParam String clntName, @RequestParam String userName) {
+        return ResponseEntity.ok(coreLovsService.findUsersByclntName(clntName,userName));
     }
 }

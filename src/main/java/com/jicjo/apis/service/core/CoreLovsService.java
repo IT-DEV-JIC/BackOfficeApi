@@ -10,6 +10,6 @@ import java.util.List;
 public interface CoreLovsService extends Serializable {
     List<CoreLovs> getCstByclntName(String clntName);
     List<CoreLovs> findBrnByclntName(String clntName);
-    List<CoreLovs> findPstApplicationWordingsById(Long pstApwId);
     List<CoreLovs> findMpdPolicies();
+    List<CoreLovs> findUsersByclntName(String clntName, String userName);
 }

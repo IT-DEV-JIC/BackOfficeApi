@@ -8,6 +8,6 @@ import java.util.Date;
 import java.util.List;
 
 @Service
-public interface GclEkrookaClaimsService  {
+public interface GclEkrookaClaimsService  extends Serializable{
     List<GclEkrookaClaimsDto> getGclEkrookaClaims(Date accidentDate);
 }

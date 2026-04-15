@@ -3,7 +3,7 @@ server:
   ssl:
     enabled: true
     key-store: classpath:ssl/jicjo.pfx
-    key-store-password: ENC(69MCDVSKX/kIhezOQQ5OJIyqgmNHjQfHqxTLdiPJSiHy7LVoapPE6DvtFe7OD8AN)
+    key-store-password: ENC(+iQqAJklVNfB/HKCFFwWF3/UXevyp/+yRIZ+0pgOQvUqsYEuxJfShOzZQX3smaep)
     key-store-type: PKCS12
 
   tomcat:
