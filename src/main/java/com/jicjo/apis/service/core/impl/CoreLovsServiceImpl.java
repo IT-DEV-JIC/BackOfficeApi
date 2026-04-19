@@ -28,12 +28,12 @@ public class CoreLovsServiceImpl implements CoreLovsService {
     }
 
     @Override
-    public List<CoreLovs> findPstApplicationWordingsById(Long pstApwId) {
-        return this.coreLovsRepository.findPstApplicationWordingsById(pstApwId);
+    public List<CoreLovs> findMpdPolicies() {
+        return this.coreLovsRepository.findMpdPolicies();
     }
 
     @Override
-    public List<CoreLovs> findMpdPolicies() {
-        return this.coreLovsRepository.findMpdPolicies();
+    public List<CoreLovs> findUsersByclntName(String clntName, String userName) {
+        return this.coreLovsRepository.findUsersByclntName(clntName, userName);
     }
 }

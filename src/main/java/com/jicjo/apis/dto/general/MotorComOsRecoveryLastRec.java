@@ -57,7 +57,7 @@ public class MotorComOsRecoveryLastRec  implements Serializable {
     private String CLAIM_NO;
     @JsonProperty("lossDate")
     private String LOSS_DATE;
-    @JsonProperty("lossDate")
+    @JsonProperty("paymentAmount")
     private String PAYMENT_AMOUNT;
     @JsonProperty("osAmount")
     private String OS_AMOUNT;

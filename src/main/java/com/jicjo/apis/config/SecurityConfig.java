@@ -59,7 +59,7 @@ public class SecurityConfig implements Serializable {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/api/core/authenticate","/api/core/verifyOtp", "/api/core/getSysCodes","/api/empCompliances/addEmpCompliances",
                                          "/api/core/validateToken","/api/core/forgotPassword/sendOtp","/api/core/forgotPassword/reset",
-                                         "/api/core/logout","/error").permitAll()
+                                         "/api/core/logout", "/api/sctCompliancesPortal/*","/error").permitAll()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

@@ -22,6 +22,7 @@ public class CoreLovs implements Serializable {
 
     @Id
     private Long id;
+    private String vId;
     private String name;
     private String name2;
 }
