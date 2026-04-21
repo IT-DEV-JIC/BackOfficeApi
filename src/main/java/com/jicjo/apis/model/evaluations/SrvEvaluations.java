@@ -43,19 +43,43 @@ public class SrvEvaluations implements Serializable {
     private String srvEvlEmpId;
     @Column(name = "SRV_EVL_EMP_NAME")
     private String srvEvlEmpName;
+    @Column(name = "SRV_EVL_DEPT_ID")
+    private Long srvEvlDeptId;
+    @Column(name = "SRV_EVL_DEPT_NAME")
+    private String  srvEvlDeptName;
+    @Column(name = "SRV_EVL_BRANCH_ID")
+    private Long srvEvlBranchId;
+    @Column(name = "SRV_EVL_BRANCH_NAME")
+    private String srvEvlBranchName;
+    @Column(name = "SRV_EVL_CUSTOMER_NAME")
+    private String srvEvlCustomerName;
+    @Column(name = "SRV_EVL_PHONE_NO")
+    private String srvEvlPhoneNo;
+    @Column(name = "SRV_EVL_EMAIL")
+    private String srvEvlEmail;
     @Column(name = "SRV_EVL_SERVICE_RATE")
     private Integer srvEvlServiceRate;
     @Column(name = "SRV_EVL_STAFF_RATE")
     private Integer srvEvlStaffRate;
     @Column(name = "SRV_EVL_OVERALL_RATE")
     private Integer srvEvlOverallRate;
+    @Column(name = "SRV_EVL_RECOMMEND_FLG")
+    private String srvEvlRecommendFlag;
     @Column(name = "SRV_EVL_COMMENT")
     private String srvEvlComment;
+    @Column(name = "SRV_EVL_INTERNAL_NOTE")
+    private String srvEvlInternalNote;
     @Column(name = "SRV_EVL_STATUS")
     private Long srvEvlStatus;
+    @Column(name = "SRV_EVL_STATUS_DATE")
+    private Date srvEvlStatusDate;
     @Column(name = "SRV_EVL_CREATED_BY")
     private String srvEvlCreatedBy;
     @Column(name = "SRV_EVL_CREATED_DATE")
     private Date srvEvlCreatedDate;
+    @Column(name = "SRV_EVL_UPDATED_BY")
+    private String srvEvlUpdatedBy;
+    @Column(name = "SRV_EVL_UPDATED_DATE")
+    private Date srvEvlUpdatedDate;
 
 }

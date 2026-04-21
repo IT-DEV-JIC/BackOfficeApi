@@ -27,4 +27,8 @@ public class SrvEvaluationDetailsDto implements Serializable {
     private Long srvEvdAnswerType;
     private Integer srvEvdRateValue;
     private String srvEvdTextValue;
+    private String srvEvdBoolValue;
+    private Long srvEvdSeqNo;
+    private String srvEvdCreatedBy;
+    private Date srvEvdCreatedDate;
 }

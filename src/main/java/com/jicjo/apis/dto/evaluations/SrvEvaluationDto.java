@@ -1,6 +1,5 @@
 package com.jicjo.apis.dto.evaluations;
 
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -15,7 +14,7 @@ import java.util.Date;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SrvEvaluationsDto implements Serializable {
+public class SrvEvaluationDto implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -29,11 +28,24 @@ public class SrvEvaluationsDto implements Serializable {
     private Long srvEvlInsuranceType;
     private String srvEvlEmpId;
     private String srvEvlEmpName;
+    private Long srvEvlDeptId;
+    private String srvEvlDeptName;
+    private Long srvEvlBranchId;
+    private String srvEvlBranchName;
+    private String srvEvlCustomerName;
+    private String srvEvlPhoneNo;
+    private String srvEvlEmail;
     private Integer srvEvlServiceRate;
     private Integer srvEvlStaffRate;
     private Integer srvEvlOverallRate;
+    private String srvEvlRecommendFlag;
     private String srvEvlComment;
+    private String srvEvlInternalNote;
     private Long srvEvlStatus;
+    private Date srvEvlStatusDate;
     private String srvEvlCreatedBy;
     private Date srvEvlCreatedDate;
+    private String srvEvlUpdatedBy;
+    private Date srvEvlUpdatedDate;
+
 }

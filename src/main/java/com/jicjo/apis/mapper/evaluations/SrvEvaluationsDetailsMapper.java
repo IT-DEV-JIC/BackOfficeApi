@@ -1,21 +1,19 @@
 package com.jicjo.apis.mapper.evaluations;
 
 import com.jicjo.apis.dto.evaluations.SrvEvaluationDetailsDto;
-import com.jicjo.apis.dto.evaluations.SrvEvaluationsDto;
+import com.jicjo.apis.dto.evaluations.SrvEvaluationDto;
 import com.jicjo.apis.model.evaluations.SrvEvaluationDetails;
 import com.jicjo.apis.model.evaluations.SrvEvaluations;
 
 import java.io.Serial;
-import java.io.Serializable;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SrvEvaluationDetailsMapper implements Serializable {
-
+public class SrvEvaluationsDetailsMapper {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static SrvEvaluationDetailsDto toSrvEvaluationDetailsDto(SrvEvaluationDetails srvEvaluationDetails){
+    public static SrvEvaluationDetailsDto srvEvaluationDetailsDto (SrvEvaluationDetails srvEvaluationDetails) {
         return new SrvEvaluationDetailsDto(
                 srvEvaluationDetails.getSrvEvdId(),
                 srvEvaluationDetails.getSrvEvlId(),
@@ -24,11 +22,15 @@ public class SrvEvaluationDetailsMapper implements Serializable {
                 srvEvaluationDetails.getSrvEvdQuestionEn(),
                 srvEvaluationDetails.getSrvEvdAnswerType(),
                 srvEvaluationDetails.getSrvEvdRateValue(),
-                srvEvaluationDetails.getSrvEvdTextValue()
+                srvEvaluationDetails.getSrvEvdTextValue(),
+                srvEvaluationDetails.getSrvEvdBoolValue(),
+                srvEvaluationDetails.getSrvEvdSeqNo(),
+                srvEvaluationDetails.getSrvEvdCreatedBy(),
+                srvEvaluationDetails.getSrvEvdCreatedDate()
         );
     }
 
-    public static SrvEvaluationDetails toSrvEvaluationDetails(SrvEvaluationDetailsDto srvEvaluationDetailsDto){
+    public static SrvEvaluationDetails srvEvaluationDetailsDto (SrvEvaluationDetailsDto srvEvaluationDetailsDto){
         return new SrvEvaluationDetails(
                 srvEvaluationDetailsDto.getSrvEvdId(),
                 srvEvaluationDetailsDto.getSrvEvlId(),
@@ -37,13 +39,17 @@ public class SrvEvaluationDetailsMapper implements Serializable {
                 srvEvaluationDetailsDto.getSrvEvdQuestionEn(),
                 srvEvaluationDetailsDto.getSrvEvdAnswerType(),
                 srvEvaluationDetailsDto.getSrvEvdRateValue(),
-                srvEvaluationDetailsDto.getSrvEvdTextValue()
+                srvEvaluationDetailsDto.getSrvEvdTextValue(),
+                srvEvaluationDetailsDto.getSrvEvdBoolValue(),
+                srvEvaluationDetailsDto.getSrvEvdSeqNo(),
+                srvEvaluationDetailsDto.getSrvEvdCreatedBy(),
+                srvEvaluationDetailsDto.getSrvEvdCreatedDate()
         );
     }
 
-    public static List<SrvEvaluationDetailsDto> toSrvEvaluationDetailsDtoList(List<SrvEvaluationDetails> srvEvaluationDetails) {
-        return srvEvaluationDetails.stream()
-                .map(SrvEvaluationDetailsMapper::toSrvEvaluationDetailsDto)
+    public static List<SrvEvaluationDetailsDto> srvEvaluationDetailsDtoList(List<SrvEvaluationDetails> srvEvaluations) {
+        return srvEvaluations.stream()
+                .map(SrvEvaluationsDetailsMapper::srvEvaluationDetailsDto)
                 .collect(Collectors.toList());
     }
 }

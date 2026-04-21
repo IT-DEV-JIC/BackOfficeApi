@@ -9,6 +9,7 @@ import lombok.Setter;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.Date;
 
 @Getter
 @Setter
@@ -40,4 +41,13 @@ public class SrvEvaluationDetails  implements Serializable {
     private Integer srvEvdRateValue;
     @Column(name = "SRV_EVD_TEXT_VALUE")
     private String srvEvdTextValue;
+    @Column(name = "SRV_EVD_BOOL_VALUE")
+    private String srvEvdBoolValue;
+    @Column(name = "SRV_EVD_SEQ_NO")
+    private Long srvEvdSeqNo;
+    @Column(name = "SRV_EVD_CREATED_BY")
+    private String srvEvdCreatedBy;
+    @Column(name = "SRV_EVD_CREATED_DATE")
+    private Date srvEvdCreatedDate;
+
 }

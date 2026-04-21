@@ -1,6 +1,6 @@
 package com.jicjo.apis.mapper.evaluations;
 
-import com.jicjo.apis.dto.evaluations.SrvEvaluationsDto;
+import com.jicjo.apis.dto.evaluations.SrvEvaluationDto;
 import com.jicjo.apis.model.evaluations.SrvEvaluations;
 
 import java.io.Serial;
@@ -13,8 +13,8 @@ public class SrvEvaluationsMapper implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static SrvEvaluationsDto toSrvEvaluationsDto (SrvEvaluations srvEvaluations) {
-        return new SrvEvaluationsDto(
+    public static SrvEvaluationDto toSrvEvaluationsDto (SrvEvaluations srvEvaluations) {
+        return new SrvEvaluationDto(
                 srvEvaluations.getSrvEvlId(),
                 srvEvaluations.getSrvEvlNo(),
                 srvEvaluations.getSrvEvlSourceSystem(),
@@ -24,17 +24,29 @@ public class SrvEvaluationsMapper implements Serializable {
                 srvEvaluations.getSrvEvlInsuranceType(),
                 srvEvaluations.getSrvEvlEmpId(),
                 srvEvaluations.getSrvEvlEmpName(),
+                srvEvaluations.getSrvEvlDeptId(),
+                srvEvaluations.getSrvEvlDeptName(),
+                srvEvaluations.getSrvEvlBranchId(),
+                srvEvaluations.getSrvEvlBranchName(),
+                srvEvaluations.getSrvEvlCustomerName(),
+                srvEvaluations.getSrvEvlPhoneNo(),
+                srvEvaluations.getSrvEvlEmail(),
                 srvEvaluations.getSrvEvlServiceRate(),
                 srvEvaluations.getSrvEvlStaffRate(),
                 srvEvaluations.getSrvEvlOverallRate(),
+                srvEvaluations.getSrvEvlRecommendFlag(),
                 srvEvaluations.getSrvEvlComment(),
+                srvEvaluations.getSrvEvlInternalNote(),
                 srvEvaluations.getSrvEvlStatus(),
+                srvEvaluations.getSrvEvlStatusDate(),
                 srvEvaluations.getSrvEvlCreatedBy(),
-                srvEvaluations.getSrvEvlCreatedDate()
+                srvEvaluations.getSrvEvlCreatedDate(),
+                srvEvaluations.getSrvEvlUpdatedBy(),
+                srvEvaluations.getSrvEvlUpdatedDate()
         );
     }
 
-    public static SrvEvaluations toSrvEvaluations (SrvEvaluationsDto srvEvaluationsDto) {
+    public static SrvEvaluations toSrvEvaluations (SrvEvaluationDto srvEvaluationsDto) {
         return new SrvEvaluations(
                 srvEvaluationsDto.getSrvEvlId(),
                 srvEvaluationsDto.getSrvEvlNo(),
@@ -45,17 +57,29 @@ public class SrvEvaluationsMapper implements Serializable {
                 srvEvaluationsDto.getSrvEvlInsuranceType(),
                 srvEvaluationsDto.getSrvEvlEmpId(),
                 srvEvaluationsDto.getSrvEvlEmpName(),
+                srvEvaluationsDto.getSrvEvlDeptId(),
+                srvEvaluationsDto.getSrvEvlDeptName(),
+                srvEvaluationsDto.getSrvEvlBranchId(),
+                srvEvaluationsDto.getSrvEvlBranchName(),
+                srvEvaluationsDto.getSrvEvlCustomerName(),
+                srvEvaluationsDto.getSrvEvlPhoneNo(),
+                srvEvaluationsDto.getSrvEvlEmail(),
                 srvEvaluationsDto.getSrvEvlServiceRate(),
                 srvEvaluationsDto.getSrvEvlStaffRate(),
                 srvEvaluationsDto.getSrvEvlOverallRate(),
+                srvEvaluationsDto.getSrvEvlRecommendFlag(),
                 srvEvaluationsDto.getSrvEvlComment(),
+                srvEvaluationsDto.getSrvEvlInternalNote(),
                 srvEvaluationsDto.getSrvEvlStatus(),
+                srvEvaluationsDto.getSrvEvlStatusDate(),
                 srvEvaluationsDto.getSrvEvlCreatedBy(),
-                srvEvaluationsDto.getSrvEvlCreatedDate()
+                srvEvaluationsDto.getSrvEvlCreatedDate(),
+                srvEvaluationsDto.getSrvEvlUpdatedBy(),
+                srvEvaluationsDto.getSrvEvlUpdatedDate()
         );
     }
 
-    public static List<SrvEvaluationsDto> toSrvEvaluationsDtoList(List<SrvEvaluations> srvEvaluations) {
+    public static List<SrvEvaluationDto> toSrvEvaluationsDtoList(List<SrvEvaluations> srvEvaluations) {
         return srvEvaluations.stream()
                 .map(SrvEvaluationsMapper::toSrvEvaluationsDto)
                 .collect(Collectors.toList());
