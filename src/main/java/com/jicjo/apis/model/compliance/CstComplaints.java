@@ -76,4 +76,6 @@ public class CstComplaints implements Serializable {
     private String cstCmpCreatedBy;
     @Column(name ="CST_CMP_INSURANCE_TYPE")
     private Long cstCmpInsuranceType;
+    @Column(name ="CST_CMP_LANG")
+    private String cstCmpLang;
 }

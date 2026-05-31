@@ -1,16 +1,16 @@
 package com.jicjo.apis.service.compliance.impl;
 
+import com.jicjo.apis.dto.compliance.CstCmpRateDto;
 import com.jicjo.apis.dto.compliance.CstComplaintFollowupDto;
+import com.jicjo.apis.dto.compliance.CstComplaintsDashboardDto;
 import com.jicjo.apis.dto.compliance.CstComplaintsDto;
+import com.jicjo.apis.mapper.compliance.CstCmpRateMapper;
 import com.jicjo.apis.mapper.compliance.CstComplaintFollowupMapper;
 import com.jicjo.apis.mapper.compliance.CstComplaintsMapper;
-import com.jicjo.apis.mapper.core.UsersMapper;
+import com.jicjo.apis.model.compliance.CstCmpRate;
 import com.jicjo.apis.model.compliance.CstComplaintFollowup;
 import com.jicjo.apis.model.compliance.CstComplaints;
-import com.jicjo.apis.model.core.Users;
-import com.jicjo.apis.repository.compliance.CodeSegmentationRepository;
-import com.jicjo.apis.repository.compliance.CstComplaintFollowupRepository;
-import com.jicjo.apis.repository.compliance.CstComplaintsRepository;
+import com.jicjo.apis.repository.compliance.*;
 import com.jicjo.apis.service.compliance.CstComplaintsService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +37,12 @@ public class CstComplaintsServiceImpl implements CstComplaintsService {
     @Autowired
     private CstComplaintFollowupRepository cstComplaintFollowupRepository;
 
+    @Autowired
+    private CstComplaintsDashboardRepository cstComplaintsDashboardRepository;
+
+    @Autowired
+    private CstCmpRateRepository cstCmpRateRepository;
+
     private static final String REQUEST_DIR = "D:/TomcatApps/Attachments/ComplaintsAttachments/Request";
     private static final String RESPONCE_DIR = "D:/TomcatApps/Attachments/ComplaintsAttachments/Responce";
 
@@ -57,6 +63,8 @@ public class CstComplaintsServiceImpl implements CstComplaintsService {
         cstComplaintFollowup.setCstCflAssignedTo(savedCstComplaints.getCstCdoUser());
         cstComplaintFollowup.setCstCflCreatedBy(savedCstComplaints.getCstCmpCreatedBy());
         cstComplaintFollowup.setCstCflCreatedDate(savedCstComplaints.getCstCmpCreationDate());
+        cstComplaintFollowup.setCstCmpPriorityAfter(savedCstComplaints.getCstCmpPriority());
+        cstComplaintFollowup.setCstCmpPriorityBefore(savedCstComplaints.getCstCmpPriority());
         cstComplaintFollowupRepository.save(cstComplaintFollowup);
 
         return cstComplaintsDto.getCstCmpNumber();
@@ -166,5 +174,47 @@ public class CstComplaintsServiceImpl implements CstComplaintsService {
     @Override
     public List<CstComplaintFollowupDto> findCstComplaintFollowupByCstCmpId(Long cstCmpId) {
         return CstComplaintFollowupMapper.toCstComplaintFollowupDtoList(cstComplaintFollowupRepository.findCstComplaintFollowupByCstCmpId(cstCmpId));
+    }
+
+    @Override
+    public List<CstComplaintsDashboardDto> getCstComplaintsDashboar() {
+        return this.cstComplaintsDashboardRepository.getCstComplaintsDashboar();
+    }
+
+    @Override
+    public CstComplaintsDto getCstComplaintsById(Long cstCmpId) {
+        return CstComplaintsMapper.toCstComplaintsDto(cstComplaintsRepository.getCstComplaintsByCstCmpId(cstCmpId).orElseThrow(()
+                -> new RuntimeException("Complaint Not Found")));
+    }
+
+    @Override
+    public CstCmpRateDto addCstCmpRate(CstCmpRateDto cstCmpRateDto) {
+        CstCmpRate cstCmpRate = CstCmpRateMapper.toCstCmpRate(cstCmpRateDto);
+
+        cstCmpRate.setCstCmrId(null);
+        cstCmpRate.setCstCmrCreationDate(new Date());
+        return CstCmpRateMapper.toCstCmpRateDto(cstCmpRateRepository.save(cstCmpRate));
+    }
+
+    @Override
+    public String addStars(Long cstCmrId, Long cstCmrStars) {
+        CstCmpRate cstCmpRate = cstCmpRateRepository.findCstCmpRateByCstCmrId(cstCmrId).orElseThrow(()
+                -> new RuntimeException("Complaint Rate Not Found"));
+        cstCmpRate.setCstCmrStars(cstCmrStars);
+        cstCmpRateRepository.save(cstCmpRate);
+
+        return "Saved";
+    }
+
+    @Override
+    public CstCmpRateDto findCstCmpRateByCstCmpId(Long cstCmpId) {
+        return CstCmpRateMapper.toCstCmpRateDto(cstCmpRateRepository.findCstCmpRateByCstCmpId(cstCmpId).orElseThrow(()
+                -> new RuntimeException("Rate Not Found")));
+    }
+
+    @Override
+    public CstCmpRateDto findCstCmpRateByCstCmrId2(Long cstCmrId) {
+        return CstCmpRateMapper.toCstCmpRateDto(cstCmpRateRepository.findCstCmpRateByCstCmrId2(cstCmrId).orElseThrow(()
+                -> new RuntimeException("Rate Not Found")));
     }
 }

@@ -53,6 +53,15 @@ public class TahaController {
         return ResponseEntity.ok(results);
     }
 
+    @GetMapping("/getPaidRecoveryLatest")
+    public ResponseEntity<List<PaidRecoveryLatestDto>> getPaidRecoveryLatest(
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,
+            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date toDate
+    ) {
+        List<PaidRecoveryLatestDto> results = tahaRepository.getPaidRecoveryLatest(fromDate,toDate);
+        return ResponseEntity.ok(results);
+    }
+
     @GetMapping("/getRepairPurchaseOrder")
     public ResponseEntity<List<RepairPurchaseOrderDto>> getRepairPurchaseOrder(
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date fromDate,

@@ -1,13 +1,17 @@
 package com.jicjo.apis.service.core.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.jicjo.apis.dto.core.EmailLogDto;
 import com.jicjo.apis.dto.core.SmsRequestDto;
 import com.jicjo.apis.service.core.ApiCollingService;
+import com.jicjo.apis.service.core.EmailSenderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.net.URISyntaxException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,11 +27,14 @@ public class OtpService implements Serializable {
     private final ApiCollingService apiCollingService;
 
     @Autowired
+    private EmailSenderService emailSenderService;
+
+    @Autowired
     public OtpService(ApiCollingService apiCollingService) {
         this.apiCollingService = apiCollingService;
     }
 
-    public void generateAndSendOtp(String username, String phoneNumber) {
+    public void generateAndSendOtp(String username, String phoneNumber,String email) {
         String otp = String.valueOf(new Random().nextInt(900000) + 100000);
         otpStore.put(username, otp);
 
@@ -50,8 +57,24 @@ public class OtpService implements Serializable {
 
         try {
             apiCollingService.SendSms(smsDto);
+
+            if (email != null && !email.trim().isEmpty()) {
+                EmailLogDto emailLogDto = new EmailLogDto();
+                emailLogDto.setEmailSender("JIC@jicjo.com");
+                emailLogDto.setEmailReceiver(email.trim());
+                emailLogDto.setEmailCc("");
+                emailLogDto.setEmailBcc("");
+                emailLogDto.setEmailSubject("JIC");
+                emailLogDto.setEmailBody("Your OTP code is: " + otp);
+                emailSenderService.sendEmail(emailLogDto);
+            }
+
         } catch (JsonProcessingException e) {
             throw new RuntimeException("Failed to send OTP SMS", e);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 

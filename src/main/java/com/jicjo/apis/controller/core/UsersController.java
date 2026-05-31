@@ -58,7 +58,7 @@ public class UsersController implements Serializable {
         return ResponseEntity.ok("User registered");
     }
 
-    @PostMapping("/authenticate")
+    /*@PostMapping("/authenticate")
     public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
         authRequest.setUsername(authRequest.getUsername().toLowerCase());
         try {
@@ -93,9 +93,9 @@ public class UsersController implements Serializable {
         final String token = jwtUtil.generateToken(userDetails.getUsername());
 
         return ResponseEntity.ok(new AuthResponse(token));
-    }
+    }*/
 
-    /*@PostMapping("/authenticate")
+    @PostMapping("/authenticate")
     public ResponseEntity<?> generateToken(@RequestBody AuthRequest authRequest) {
         try {
             authManager.authenticate(
@@ -127,7 +127,7 @@ public class UsersController implements Serializable {
         }
 
         // ✅ Send OTP via SMS instead of returning token
-        otpService.generateAndSendOtp(authRequest.getUsername(), usersDto.getPhone());
+        otpService.generateAndSendOtp(authRequest.getUsername(), usersDto.getPhone(),usersDto.getEmail());
         return ResponseEntity.ok(Map.of("status", "OTP_SENT"));
     }
 
@@ -145,7 +145,7 @@ public class UsersController implements Serializable {
         otpService.clearOtp(request.getUsername());
 
         return ResponseEntity.ok(new AuthResponse(token));
-    }*/
+    }
 
     @PostMapping("/forgotPassword/sendOtp")
     public ResponseEntity<?> sendResetOtp(@RequestBody Map<String, String> req) {
@@ -157,7 +157,7 @@ public class UsersController implements Serializable {
             return ResponseEntity.badRequest().body(Map.of("errorCode", "ERR_NO_PHONE"));
         }
 
-        otpService.generateAndSendOtp(username, users.getPhone());
+        otpService.generateAndSendOtp(username, users.getPhone(), users.getEmail());
 
         return ResponseEntity.ok(Map.of("status", "OTP_SENT"));
     }

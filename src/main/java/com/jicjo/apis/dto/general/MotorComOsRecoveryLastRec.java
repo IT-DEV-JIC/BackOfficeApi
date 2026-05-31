@@ -15,62 +15,62 @@ public class MotorComOsRecoveryLastRec  implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @JsonProperty("notificationDate")
+    //@JsonProperty("notificationDate")
     private String NOTIFICATION_DATE;
-    @JsonProperty("gstPltCode")
+    //@JsonProperty("gstPltCode")
     private String GST_PLT_CODE;
-    @JsonProperty("gstClsId")
+    //@JsonProperty("gstClsId")
     private String GST_CLS_ID;
-    @JsonProperty("crgBrnId")
+    //@JsonProperty("crgBrnId")
     private String CRG_BRN_ID;
-    @JsonProperty("crgCurCode")
+    //@JsonProperty("crgCurCode")
     private String CRG_CUR_CODE;
-    @JsonProperty("branch")
+    //@JsonProperty("branch")
     private String BRANCH;
-    @JsonProperty("insuranceClass")
+    //@JsonProperty("insuranceClass")
     private String INSURANCE_CLASS;
-    @JsonProperty("policyType")
+    //@JsonProperty("policyType")
     private String POLICY_TYPE;
-    @JsonProperty("currency")
+    //@JsonProperty("currency")
     private String CURRENCY;
-    @JsonProperty("registrationDate")
+    //@JsonProperty("registrationDate")
     private String REGISTRATION_DATE;
-    @JsonProperty("beneficiaryNumber")
+    //@JsonProperty("beneficiaryNumber")
     private String BENEFICIARY_NUMBER;
-    @JsonProperty("beneficiaryName")
+    //@JsonProperty("beneficiaryName")
     private String BENEFICIARY_NAME;
-    @JsonProperty("causeOfLoss")
+    //@JsonProperty("causeOfLoss")
     private String CAUSE_OF_LOSS;
-    @JsonProperty("damageType")
+    //@JsonProperty("damageType")
     private String DAMAGE_TYPE;
-    @JsonProperty("plateNo")
+    //@JsonProperty("plateNo")
     private String PLATE_NO;
-    @JsonProperty("mtChassisNo")
+    //@JsonProperty("mtChassisNo")
     private String MT_CHASSIS_NO;
-    @JsonProperty("insuredNumber")
+    //@JsonProperty("insuredNumber")
     private String INSURED_NUMBER;
-    @JsonProperty("insuredName")
+    //@JsonProperty("insuredName")
     private String INSURED_NAME;
-    @JsonProperty("policyNo")
+    //@JsonProperty("policyNo")
     private String POLICY_NO;
-    @JsonProperty("claimNo")
+    //@JsonProperty("claimNo")
     private String CLAIM_NO;
-    @JsonProperty("lossDate")
+    //@JsonProperty("lossDate")
     private String LOSS_DATE;
-    @JsonProperty("paymentAmount")
+    //@JsonProperty("paymentAmount")
     private String PAYMENT_AMOUNT;
-    @JsonProperty("osAmount")
+    //@JsonProperty("osAmount")
     private String OS_AMOUNT;
-    @JsonProperty("responsipilityType")
+    //@JsonProperty("responsipilityType")
     private String RESPONSIPILITY_TYPE;
-    @JsonProperty("shareOs")
+    //@JsonProperty("shareOs")
     private String SHARE_OS;
-    @JsonProperty("transDateReserve")
+    //@JsonProperty("transDateReserve")
     private String TRANS_DATE_RESERVE;
-    @JsonProperty("courtCase")
+    //@JsonProperty("courtCase")
     private String COURT_CASE;
-    @JsonProperty("insuranceCo")
+    //@JsonProperty("insuranceCo")
     private String INSURANCE_CO;
-    @JsonProperty("insuranceCoClaimsPage")
+    //@JsonProperty("insuranceCoClaimsPage")
     private String INSURANCE_CO_CLAIMS_PAGE;
 }

@@ -1,8 +1,6 @@
 package com.jicjo.apis.dto.compliance;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,28 +11,22 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Date;
 
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class CstComplaintFollowupDto implements Serializable {
+public class CstCmpRateDto  implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private Long cstCflId;
+    private Long cstCmrId;
     private Long cstCmpId;
-    private String cstCflNote;
-    private Long cstCflStatusBefore;
-    private Long cstCflStatusAfter;
-    private Long cstCflActionType;
-    private String cstCflAssignedTo;
-    private String cstCflCreatedBy;
+    private String cstCdoUser;
+    private Long cstCmrStars;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-    private Date cstCflCreatedDate;
-    private String cstCflRequestAttachment;
-    private String cstCflResponcerAttachment;
-    private Long cstCmpPriorityBefore;
-    private Long cstCmpPriorityAfter;
+    private Date cstCmrCreationDate;
+
 }

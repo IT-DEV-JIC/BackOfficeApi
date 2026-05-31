@@ -58,4 +58,5 @@ public class CstComplaintsDto implements Serializable {
     private Date cstCmpEndDate;
     private String cstCmpCreatedBy;
     private Long cstCmpInsuranceType;
+    private String cstCmpLang;
 }

@@ -1,22 +1,14 @@
 package com.jicjo.apis.exception;
 
 import com.jicjo.apis.dto.core.EmailLogDto;
-import com.jicjo.apis.dto.core.UsersDto;
-import com.jicjo.apis.mapper.core.UsersMapper;
 import com.jicjo.apis.model.core.ErrorLog;
 import com.jicjo.apis.repository.core.ErrorLogRepository;
-import com.jicjo.apis.repository.core.UsersRepository;
 import com.jicjo.apis.service.core.EmailSenderService;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,8 +17,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
-
-
+import java.util.List;
 
 @RestControllerAdvice
 @Qualifier("jwtExceptionHandler")
@@ -55,23 +46,37 @@ public class JwtGlobalExceptionHandler implements Serializable {
 
             log = errorLogRepository.save(log);
 
-            EmailLogDto emailLogDto = new EmailLogDto();
-            emailLogDto.setEmailSender("JIC@jicjo.com");
-            emailLogDto.setEmailReceiver("IT@jicjo.com");
-            emailLogDto.setEmailCc("");
-            emailLogDto.setEmailBcc("");
-            emailLogDto.setEmailSubject("Banca Error Notification");
-            emailLogDto.setEmailBody("You have new error notification with Id " + log.getId() +
-                    "\n \n" + Arrays.toString(ex.getStackTrace()));
+            if (shouldSendEmail(ex)) {
+                EmailLogDto emailLogDto = new EmailLogDto();
+                emailLogDto.setEmailSender("PortalAdmin@jicjo.com");
+                emailLogDto.setEmailReceiver("IT@jicjo.com");
+                emailLogDto.setEmailCc("");
+                emailLogDto.setEmailBcc("");
+                emailLogDto.setEmailSubject("Back Office Portal Error Notification");
+                emailLogDto.setEmailBody("You have new error notification with Id " + log.getId() +
+                        "\n \n" + Arrays.toString(ex.getStackTrace()));
 
-            emailSenderService.sendEmail(emailLogDto);
+                emailSenderService.sendEmail(emailLogDto);
+            }
 
         } catch (Exception e) {
-            e.printStackTrace(); // <-- to see if saving the error itself fails
+            e.printStackTrace();
         }
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("An unexpected error occurred.");
     }
 
+    private boolean shouldSendEmail(Exception ex) {
+        String exceptionName = ex.getClass().getName();
+        List<String> ignoredExceptions = Arrays.asList(
+                "org.apache.catalina.connector.ClientAbortException",
+                "java.io.IOException",
+                "org.springframework.web.servlet.resource.NoResourceFoundException",
+                "org.springframework.web.HttpRequestMethodNotSupportedException",
+                "org.springframework.security.access.AccessDeniedException"
+        );
+
+        return !ignoredExceptions.contains(exceptionName);
+    }
 }

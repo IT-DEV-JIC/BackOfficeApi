@@ -24,7 +24,9 @@ public class CstComplaintFollowupMapper implements Serializable {
                 cstComplaintFollowup.getCstCflCreatedBy(),
                 cstComplaintFollowup.getCstCflCreatedDate(),
                 cstComplaintFollowup.getCstCflRequestAttachment(),
-                cstComplaintFollowup.getCstCflResponcerAttachment()
+                cstComplaintFollowup.getCstCflResponcerAttachment(),
+                cstComplaintFollowup.getCstCmpPriorityBefore(),
+                cstComplaintFollowup.getCstCmpPriorityAfter()
         );
     }
 
@@ -40,7 +42,9 @@ public class CstComplaintFollowupMapper implements Serializable {
                 cstComplaintFollowupDto.getCstCflCreatedBy(),
                 cstComplaintFollowupDto.getCstCflCreatedDate(),
                 cstComplaintFollowupDto.getCstCflRequestAttachment(),
-                cstComplaintFollowupDto.getCstCflResponcerAttachment()
+                cstComplaintFollowupDto.getCstCflResponcerAttachment(),
+                cstComplaintFollowupDto.getCstCmpPriorityBefore(),
+                cstComplaintFollowupDto.getCstCmpPriorityAfter()
         );
     }
 

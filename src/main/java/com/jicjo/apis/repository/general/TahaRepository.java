@@ -356,6 +356,116 @@ public class TahaRepository implements Serializable {
         }).toList();
     }
 
+    public List<PaidRecoveryLatestDto> getPaidRecoveryLatest(
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Amman")
+            Date fromDate,
+            @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Amman")
+            Date toDate
+    ) {
+        SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
+                .withCatalogName("TAHA_PORTAL")
+                .withProcedureName("PAID_RECOVERY_LATEST")
+                .declareParameters(
+                        new SqlParameter("P_FROM_DATE", Types.DATE),
+                        new SqlParameter("P_TO_DATE", Types.DATE),
+                        new SqlOutParameter("P_REF_CURSOR", OracleTypes.CURSOR, new ColumnMapRowMapper())
+                );
+
+        Map<String, Object> result = jdbcCall.execute(
+                new MapSqlParameterSource()
+                        .addValue("P_FROM_DATE", fromDate)
+                        .addValue("P_TO_DATE", toDate)
+        );
+
+        //jdbcTemplate.setFetchSize(1000000);
+        jdbcCall.getJdbcTemplate().setQueryTimeout(1800); // 30 دقائق
+
+        //return (List<Map<String, Object>>) result.get("P_REF_CURSOR");
+        List<Map<String, Object>> rows = (List<Map<String, Object>>) result.get("P_REF_CURSOR");
+
+        return rows.stream().map(row -> {
+            PaidRecoveryLatestDto dto = new PaidRecoveryLatestDto();
+
+            // Convert everything to String safely
+            dto.setBRANCH(row.get("BRANCH") != null ? row.get("BRANCH").toString() : null);
+            dto.setBUSINESS_CLASS(row.get("BUSINESS_CLASS") != null ? row.get("BUSINESS_CLASS").toString() : null);
+            dto.setBUSINESS_CODE(row.get("BUSINESS_CODE") != null ? row.get("BUSINESS_CODE").toString() : null);
+            dto.setPRODUCT_NAME(row.get("PRODUCT_NAME") != null ? row.get("PRODUCT_NAME").toString() : null);
+            dto.setPRODUCT_CODE(row.get("PRODUCT_CODE") != null ? row.get("PRODUCT_CODE").toString() : null);
+            dto.setACCOUNT_TYPE(row.get("ACCOUNT_TYPE") != null ? row.get("ACCOUNT_TYPE").toString() : null);
+            dto.setTERRITORY(row.get("TERRITORY") != null ? row.get("TERRITORY").toString() : null);
+            dto.setPOLICY_NUMBER(row.get("POLICY_NUMBER") != null ? row.get("POLICY_NUMBER").toString() : null);
+            dto.setEFFECTIVE_DATE(row.get("EFFECTIVE_DATE") != null ? row.get("EFFECTIVE_DATE").toString() : null);
+            dto.setEXPIRY_DATE(row.get("EXPIRY_DATE") != null ? row.get("EXPIRY_DATE").toString() : null);
+            dto.setINSURED_NUMBER(row.get("INSURED_NUMBER") != null ? row.get("INSURED_NUMBER").toString() : null);
+            dto.setGENDER(row.get("GENDER") != null ? row.get("GENDER").toString() : null);
+            dto.setAGE(row.get("AGE") != null ? row.get("AGE").toString() : null);
+            dto.setCLAIM_NUMBER(row.get("CLAIM_NUMBER") != null ? row.get("CLAIM_NUMBER").toString() : null);
+            dto.setDATE_OF_LOSS_DD(row.get("DATE_OF_LOSS_DD") != null ? row.get("DATE_OF_LOSS_DD").toString() : null);
+            dto.setDATE_OF_LOSS_MM(row.get("DATE_OF_LOSS_MM") != null ? row.get("DATE_OF_LOSS_MM").toString() : null);
+            dto.setDATE_OF_LOSS_YYYY(row.get("DATE_OF_LOSS_YYYY") != null ? row.get("DATE_OF_LOSS_YYYY").toString() : null);
+            dto.setDATE_OF_REPORTING_DD(row.get("DATE_OF_REPORTING_DD") != null ? row.get("DATE_OF_REPORTING_DD").toString() : null);
+            dto.setDATE_OF_REPORTING_MM(row.get("DATE_OF_REPORTING_MM") != null ? row.get("DATE_OF_REPORTING_MM").toString() : null);
+            dto.setDATE_OF_REPORTING_YYYY(row.get("DATE_OF_REPORTING_YYYY") != null ? row.get("DATE_OF_REPORTING_YYYY").toString() : null);
+            dto.setDATE_OF_TRANSACTION_DD(row.get("DATE_OF_TRANSACTION_DD") != null ? row.get("DATE_OF_TRANSACTION_DD").toString() : null);
+            dto.setDATE_OF_TRANSACTION_MM(row.get("DATE_OF_TRANSACTION_MM") != null ? row.get("DATE_OF_TRANSACTION_MM").toString() : null);
+            dto.setDATE_OF_TRANSACTION_YYYY(row.get("DATE_OF_TRANSACTION_YYYY") != null ? row.get("DATE_OF_TRANSACTION_YYYY").toString() : null);
+            dto.setTRANSACTION_AMOUNT(row.get("TRANSACTION_AMOUNT") != null ? row.get("TRANSACTION_AMOUNT").toString() : null);
+            dto.setTP_MATREIAL(row.get("TP_MATREIAL") != null ? row.get("TP_MATREIAL").toString() : null);
+            dto.setTP_BODLY(row.get("TP_BODLY") != null ? row.get("TP_BODLY").toString() : null);
+            dto.setTP_DEATH(row.get("TP_DEATH") != null ? row.get("TP_DEATH").toString() : null);
+            dto.setOD_MATREIAL(row.get("OD_MATREIAL") != null ? row.get("OD_MATREIAL").toString() : null);
+            dto.setOD_BODLY(row.get("OD_BODLY") != null ? row.get("OD_BODLY").toString() : null);
+            dto.setOD_DEATH(row.get("OD_DEATH") != null ? row.get("OD_DEATH").toString() : null);
+            dto.setOTHERS(row.get("OTHERS") != null ? row.get("OTHERS").toString() : null);
+            dto.setSUM_PAYM_TRANS_DET(row.get("SUM_PAYM_TRANS_DET") != null ? row.get("SUM_PAYM_TRANS_DET").toString() : null);
+            dto.setINSURANCE_COMPANY(row.get("INSURANCE_COMPANY") != null ? row.get("INSURANCE_COMPANY").toString() : null);
+            dto.setINDIVIDUAL(row.get("INDIVIDUAL") != null ? row.get("INDIVIDUAL").toString() : null);
+            dto.setSELLING_SCRAP(row.get("SELLING_SCRAP") != null ? row.get("SELLING_SCRAP").toString() : null);
+            dto.setDEDUCTIBLE(row.get("DEDUCTIBLE") != null ? row.get("DEDUCTIBLE").toString() : null);
+            dto.setDEPRECIATION(row.get("DEPRECIATION") != null ? row.get("DEPRECIATION").toString() : null);
+            dto.setSHIP_OWNERS(row.get("SHIP_OWNERS") != null ? row.get("SHIP_OWNERS").toString() : null);
+            dto.setP_I_CLUB(row.get("P_I_CLUB") != null ? row.get("P_I_CLUB").toString() : null);
+            dto.setHAULER(row.get("HAULER") != null ? row.get("HAULER").toString() : null);
+            dto.setGENERAL_AVERAGE(row.get("GENERAL_AVERAGE") != null ? row.get("GENERAL_AVERAGE").toString() : null);
+            dto.setRECOVERY_FROM_INSURED(row.get("RECOVERY_FROM_INSURED") != null ? row.get("RECOVERY_FROM_INSURED").toString() : null);
+            dto.setDED_DEPRETIATION(row.get("DED_DEPRETIATION") != null ? row.get("DED_DEPRETIATION").toString() : null);
+            dto.setDEBITOR_DED_DEPRETIATION(row.get("DEBITOR_DED_DEPRETIATION") != null ? row.get("DEBITOR_DED_DEPRETIATION").toString() : null);
+            dto.setREINSURANCE_SHARE(row.get("REINSURANCE_SHARE") != null ? row.get("REINSURANCE_SHARE").toString() : null);
+            dto.setREINSURANCE_LOCAL_SHARE(row.get("REINSURANCE_LOCAL_SHARE") != null ? row.get("REINSURANCE_LOCAL_SHARE").toString() : null);
+            dto.setREINSURANCE_FRN_SHARE(row.get("REINSURANCE_FRN_SHARE") != null ? row.get("REINSURANCE_FRN_SHARE").toString() : null);
+            dto.setTRANSACTION_TYPE(row.get("TRANSACTION_TYPE") != null ? row.get("TRANSACTION_TYPE").toString() : null);
+            dto.setREINSURANCE_TYPE(row.get("REINSURANCE_TYPE") != null ? row.get("REINSURANCE_TYPE").toString() : null);
+            dto.setCOURT_CASE(row.get("COURT_CASE") != null ? row.get("COURT_CASE").toString() : null);
+            dto.setCAR_PLATE(row.get("CAR_PLATE") != null ? row.get("CAR_PLATE").toString() : null);
+            dto.setMT_CHASSIS_NO(row.get("MT_CHASSIS_NO") != null ? row.get("MT_CHASSIS_NO").toString() : null);
+            dto.setCAR_PLATE_FROM_CLAIM(row.get("CAR_PLATE_FROM_CLAIM") != null ? row.get("CAR_PLATE_FROM_CLAIM").toString() : null);
+            dto.setMT_CHASSIS_NO_FROM_CLAIM(row.get("MT_CHASSIS_NO_FROM_CLAIM") != null ? row.get("MT_CHASSIS_NO_FROM_CLAIM").toString() : null);
+            dto.setCOLOR_CAR(row.get("COLOR_CAR") != null ? row.get("COLOR_CAR").toString() : null);
+            dto.setCAR_CATEGORY(row.get("CAR_CATEGORY") != null ? row.get("CAR_CATEGORY").toString() : null);
+            dto.setCAR_VALUE(row.get("CAR_VALUE") != null ? row.get("CAR_VALUE").toString() : null);
+            dto.setMAKE_YEAR(row.get("MAKE_YEAR") != null ? row.get("MAKE_YEAR").toString() : null);
+            dto.setCAR_BRAND(row.get("CAR_BRAND") != null ? row.get("CAR_BRAND").toString() : null);
+            dto.setCAR_SERIE(row.get("CAR_SERIE") != null ? row.get("CAR_SERIE").toString() : null);
+            dto.setCAR_TYPE(row.get("CAR_TYPE") != null ? row.get("CAR_TYPE").toString() : null);
+            dto.setPLC_UW_YEAR(row.get("PLC_UW_YEAR") != null ? row.get("PLC_UW_YEAR").toString() : null);
+            dto.setNATURE_OF_LOSS(row.get("NATURE_OF_LOSS") != null ? row.get("NATURE_OF_LOSS").toString() : null);
+            dto.setEFFECTIVEDATE(row.get("EFFECTIVEDATE") != null ? row.get("EFFECTIVEDATE").toString() : null);
+            dto.setEXPIRYDATE(row.get("EXPIRYDATE") != null ? row.get("EXPIRYDATE").toString() : null);
+            dto.setCITY(row.get("CITY") != null ? row.get("CITY").toString() : null);
+            dto.setINSURED_NATIONALITY(row.get("INSURED_NATIONALITY") != null ? row.get("INSURED_NATIONALITY").toString() : null);
+            dto.setINSURED_NATIONALITY2(row.get("INSURED_NATIONALITY2") != null ? row.get("INSURED_NATIONALITY2").toString() : null);
+            dto.setRED_CITY(row.get("RED_CITY") != null ? row.get("RED_CITY").toString() : null);
+            dto.setCLAIM_STATUS(row.get("CLAIM_STATUS") != null ? row.get("CLAIM_STATUS").toString() : null);
+            dto.setCST_NAME(row.get("CST_NAME") != null ? row.get("CST_NAME").toString() : null);
+            dto.setPURCHASE_ORDER(row.get("PURCHASE_ORDER") != null ? row.get("PURCHASE_ORDER").toString() : null);
+            dto.setREPAIR_ORDER(row.get("REPAIR_ORDER") != null ? row.get("REPAIR_ORDER").toString() : null);
+            dto.setRESPONSIPILITY_TYPE(row.get("RESPONSIPILITY_TYPE") != null ? row.get("RESPONSIPILITY_TYPE").toString() : null);
+
+            return dto;
+        }).toList();
+    }
+
     public List<RepairPurchaseOrderDto> getRepairPurchaseOrder(
             @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd", timezone = "Asia/Amman")
             Date fromDate,
@@ -364,7 +474,7 @@ public class TahaRepository implements Serializable {
     ) {
         SimpleJdbcCall jdbcCall = new SimpleJdbcCall(jdbcTemplate)
                 .withCatalogName("TAHA_PORTAL")
-                .withProcedureName("PRODUCTION")
+                .withProcedureName("REPAIR_PURCHASE_ORDER")
                 .declareParameters(
                         new SqlParameter("P_FROM_DATE", Types.DATE),
                         new SqlParameter("P_TO_DATE", Types.DATE),

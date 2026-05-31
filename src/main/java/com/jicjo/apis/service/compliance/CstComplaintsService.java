@@ -1,8 +1,9 @@
 package com.jicjo.apis.service.compliance;
 
+import com.jicjo.apis.dto.compliance.CstCmpRateDto;
 import com.jicjo.apis.dto.compliance.CstComplaintFollowupDto;
+import com.jicjo.apis.dto.compliance.CstComplaintsDashboardDto;
 import com.jicjo.apis.dto.compliance.CstComplaintsDto;
-import com.jicjo.apis.model.compliance.CstComplaintFollowup;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,4 +20,10 @@ public interface CstComplaintsService extends Serializable {
 
     List<CstComplaintsDto> getAllCstComplaints(Date fromDate, Date toDate);
     List<CstComplaintFollowupDto> findCstComplaintFollowupByCstCmpId(Long cstCmpId);
+    List<CstComplaintsDashboardDto> getCstComplaintsDashboar();
+    CstComplaintsDto  getCstComplaintsById(Long cstCmpId);
+    CstCmpRateDto addCstCmpRate(CstCmpRateDto cstCmpRateDto);
+    String addStars(Long cstCmrId, Long cstCmrStars);
+    CstCmpRateDto findCstCmpRateByCstCmpId(Long cstCmpId);
+    CstCmpRateDto findCstCmpRateByCstCmrId2(Long cstCmrId);
 }

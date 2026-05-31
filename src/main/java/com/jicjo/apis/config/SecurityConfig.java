@@ -41,7 +41,7 @@ public class SecurityConfig implements Serializable {
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowedOrigins(List.of("http://localhost:4200", "http://10.0.40.214:4200", "http://10.0.41.141:4200", "https://10.0.41.141:4200",
                                          "http://10.0.41.141:4200","http://*:4200", "http://JIC-PORTAL:4200",
-                                         "https://JIC-PORTAL", "https://portal.jicjo.com", "https://*", "http://*"));
+                                         "https://JIC-PORTAL", "https://portal.jicjo.com","https://80.90.174.56", "http://80.90.174.56", "https://*", "http://*"));
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
         config.setAllowCredentials(true);

@@ -39,7 +39,8 @@ public class CstComplaintsMapper implements Serializable {
                 cstComplaints.getCstCmpStartDate(),
                 cstComplaints.getCstCmpEndDate(),
                 cstComplaints.getCstCmpCreatedBy(),
-                cstComplaints.getCstCmpInsuranceType()
+                cstComplaints.getCstCmpInsuranceType(),
+                cstComplaints.getCstCmpLang()
         );
     }
 
@@ -70,7 +71,8 @@ public class CstComplaintsMapper implements Serializable {
                 cstComplaintsDto.getCstCmpStartDate(),
                 cstComplaintsDto.getCstCmpEndDate(),
                 cstComplaintsDto.getCstCmpCreatedBy(),
-                cstComplaintsDto.getCstCmpInsuranceType()
+                cstComplaintsDto.getCstCmpInsuranceType(),
+                cstComplaintsDto.getCstCmpLang()
         );
     }
 

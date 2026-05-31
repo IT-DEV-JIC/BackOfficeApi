@@ -5,6 +5,29 @@ server:
     key-store: classpath:ssl/jicjo.pfx
     key-store-password: ENC(+iQqAJklVNfB/HKCFFwWF3/UXevyp/+yRIZ+0pgOQvUqsYEuxJfShOzZQX3smaep)
     key-store-type: PKCS12
+    server:
+      error:
+        include-stacktrace: "never"
+    compression:
+      enabled: true
+      mime-types:
+        - application/json
+        - application/xml
+        - text/html
+        - text/xml
+        - text/plain
+      min-response-size: 1024
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+    servlet:
+      encoding:
+        charset: UTF-8
+        enabled: true
+        force: true
 
   tomcat:
     threads:
@@ -19,8 +42,11 @@ server:
     http2:
       enabled: true
   jvm-arguments:
-    - -Xms20g
-    - -Xmx20g
+    - -Xms32g
+    - -Xmx32g
+
+environment:
+  - JAVA_OPTS=-Xmx32g -Xms32g
 
 spring:
   application:
@@ -90,15 +116,9 @@ logging:
         web: DEBUG
         security: DEBUG
 
-  servlet:
-    multipart:
-      enabled: true
-      max-file-size: 1024MB
-      max-request-size: 1024MB
-
-  jackson:
-    serialization:
-      write-dates-as-timestamps: false
+jackson:
+  serialization:
+    write-dates-as-timestamps: false
 
   mvc:
     async:
@@ -119,4 +139,11 @@ encryption:
     key:
       aes1: ENC(jpZbLcLF1rE91mRP5vhOhGUL4mkQaiHKnS5qS8WE6nAP5r0zurbD3vv2pkwQB0jIpRiugs1GVo7sSrOMN0SLENXQXzP1IY4Zqzrzsun158yzNrsEagsjdYHnLJkUNkzVb4pCUI/RAbxerNhv5N8AT1LYWXz8guGaBs75tcWHy/QmOR7lF7AzO/Xjzk7AHD1XMkmtp45i6Oo3Im0+E6oc19yWp3yFltX5OnCuBLfOi9s=)
       aes2: ENC(oBTkWJp0/+maUSUNzOCUBzVpnftjO1PXYdEKIPxL0zX1KKL5d42TqK8GMWO/90kjISvi5TZk9sEqQCNiMaH02gE9xKtsot7e/1LIbX/11to=)
+      credentialsusername: ENC(+JNGnYIRwQ1JKxMF+zodUgEKSeo0s6hH3+xsjdGTJw5z5xeRFxRehfjD3NpMwZ29)
+      credentialspassword: ENC(53Kh8cdhlOEiUo+tDv4oYrhx3pfWPuANisfipCuBtXUscDOYaJfugJtjQNwu+GPv)
+      mailerusername: ENC(niSesMt1A31xz+HLKnO5muRMUMsdibLzC1orUJFS2es6K/w2hAEK57dbnYjVR5MU)
+      mailerpassword: ENC(seYIN25KiNoYPB1cwYPVgWhnOLFI2a1EwRQiQ7vUI/JFF4FuGDejc7yPPFj7HRlETaJK9g6e7q9chEgjH1PU1g==)
     default: aes2
+
+attachments:
+  directory: D:\TomcatApps\Attachments\Attachment

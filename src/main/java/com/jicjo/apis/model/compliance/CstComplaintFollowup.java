@@ -47,4 +47,8 @@ public class CstComplaintFollowup implements Serializable {
     private String cstCflRequestAttachment;
     @Column(name = "CST_CFL_RESPONCER_ATTACHMENT")
     private String cstCflResponcerAttachment;
+    @Column(name = "CST_CMP_PRIORITY_BEFORE")
+    private Long cstCmpPriorityBefore;
+    @Column(name = "CST_CMP_PRIORITY_AFTER")
+    private Long cstCmpPriorityAfter;
 }

@@ -16,6 +16,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.Properties;
 
+
 public class GeneralMailSender implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
@@ -26,13 +27,13 @@ public class GeneralMailSender implements Serializable {
         mailSender.setHost("mail.jicjo.com");
         mailSender.setPort(25);
 
-        mailSender.setUsername("JIC");
-        mailSender.setPassword("@1q2w3e4r");
+        mailSender.setUsername("mailer.smtp");
+        mailSender.setPassword("eZ!q52zU0SFqPEj@4c5zVzpV-f~Cw75g");
 
         Properties props = mailSender.getJavaMailProperties();
         props.put("mail.transport.protocol", "smtp");
         props.put("mail.smtp.auth", "true");
-        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.starttls.enable", "false");
         props.put("mail.debug", "true");
 
         return mailSender;
@@ -61,7 +62,7 @@ public class GeneralMailSender implements Serializable {
         JavaMailSender mailSender = getJavaMailSender();
         MimeMessage message = mailSender.createMimeMessage();
         try {
-            MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+            MimeMessageHelper helper = new MimeMessageHelper(message, true);
             helper.setFrom(from);
             helper.setTo(to);
             if (!(cC.isEmpty() || cC == "")) {
