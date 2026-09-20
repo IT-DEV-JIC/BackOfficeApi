@@ -15,7 +15,7 @@ import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/general")
+@RequestMapping("/general")
 public class EkrookaClaimsController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

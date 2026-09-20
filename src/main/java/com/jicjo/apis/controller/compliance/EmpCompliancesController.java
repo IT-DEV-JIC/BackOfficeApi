@@ -18,7 +18,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/empCompliances")
+@RequestMapping("/empCompliances")
 public class EmpCompliancesController implements Serializable {
 
     @Serial

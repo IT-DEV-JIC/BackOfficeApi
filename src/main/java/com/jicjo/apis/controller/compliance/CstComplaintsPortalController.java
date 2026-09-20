@@ -13,8 +13,10 @@ import com.jicjo.apis.service.core.EmailSenderService;
 import com.jicjo.apis.service.core.impl.OtpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -26,7 +28,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/sctCompliancesPortal")
+@RequestMapping("/sctCompliancesPortal")
 public class CstComplaintsPortalController implements Serializable {
 
     @Serial
@@ -193,6 +195,13 @@ public class CstComplaintsPortalController implements Serializable {
                 "lang", isArabic ? "ar" : "en",
                 "message", responseMessage
         ));
+    }
+
+    @PostMapping(value = "/request-attachment", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<String> addRequestAttachment(
+            @RequestParam("cstCmpNumber") String cstCmpNumber, @RequestPart(value = "requestFile") MultipartFile requestFile) {
+        String result = cstComplaintsService.addRequestAttachment(cstCmpNumber, requestFile);
+        return ResponseEntity.ok(result);
     }
 
     @PutMapping("/addStars")

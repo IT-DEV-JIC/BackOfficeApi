@@ -26,7 +26,7 @@ import java.text.ParseException;
 @RestController
 @CrossOrigin(origins = "*")
 @Component
-@RequestMapping("api/core")
+@RequestMapping("/core")
 public class EmailSenderController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

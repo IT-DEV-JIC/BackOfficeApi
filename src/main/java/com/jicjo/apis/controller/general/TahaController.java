@@ -12,7 +12,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/general")
+@RequestMapping("/general")
 public class TahaController {
 
     @Autowired

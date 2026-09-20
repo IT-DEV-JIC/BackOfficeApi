@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/core")
+@RequestMapping("/core")
 public class CoreLovsController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

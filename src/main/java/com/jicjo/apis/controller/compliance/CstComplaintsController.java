@@ -32,7 +32,7 @@ import java.util.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/cstComplaintsController")
+@RequestMapping("/cstComplaintsController")
 public class CstComplaintsController {
 
     private final ApiCollingService apiCollingService;

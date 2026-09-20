@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/evaluation")
+@RequestMapping("/evaluation")
 
 public class SrvEvaluationDetailsController {
     @Autowired

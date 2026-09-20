@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/core")
+@RequestMapping("/core")
 public class SysCodesController implements Serializable {
 
     @Autowired

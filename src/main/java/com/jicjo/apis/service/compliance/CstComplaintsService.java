@@ -26,4 +26,5 @@ public interface CstComplaintsService extends Serializable {
     String addStars(Long cstCmrId, Long cstCmrStars);
     CstCmpRateDto findCstCmpRateByCstCmpId(Long cstCmpId);
     CstCmpRateDto findCstCmpRateByCstCmrId2(Long cstCmrId);
+    String addRequestAttachment(String cstCmpNumber, MultipartFile requestFile);
 }

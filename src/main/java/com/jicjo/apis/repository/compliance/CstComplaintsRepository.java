@@ -18,4 +18,7 @@ public interface CstComplaintsRepository extends JpaRepository<CstComplaints,Lon
 
     @Query("SELECT C FROM CstComplaints C WHERE C.cstCmpId = :cstCmpId")
     Optional<CstComplaints> getCstComplaintsByCstCmpId(Long cstCmpId);
+
+    @Query("SELECT C FROM CstComplaints C WHERE C.cstCmpNumber = :cstCmpNumber")
+    Optional<CstComplaints> getCstComplaintsByCstCmpNumber(String cstCmpNumber);
 }

@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.Serial;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -216,5 +217,49 @@ public class CstComplaintsServiceImpl implements CstComplaintsService {
     public CstCmpRateDto findCstCmpRateByCstCmrId2(Long cstCmrId) {
         return CstCmpRateMapper.toCstCmpRateDto(cstCmpRateRepository.findCstCmpRateByCstCmrId2(cstCmrId).orElseThrow(()
                 -> new RuntimeException("Rate Not Found")));
+    }
+
+    @Override
+    @Transactional
+    public String addRequestAttachment(String cstCmpNumber, MultipartFile requestFile) {
+
+        CstComplaints selectedCstComplaints = cstComplaintsRepository.getCstComplaintsByCstCmpNumber(cstCmpNumber).orElseThrow(()
+                -> new RuntimeException("Complaint Not Found"));
+
+        List<CstComplaintFollowup> cstComplaintFollowupList  =
+                cstComplaintFollowupRepository.findCstComplaintFollowupByCstCmpId(selectedCstComplaints.getCstCmpId());
+
+        CstComplaintFollowup cstComplaintFollowup = cstComplaintFollowupList.stream()
+                .min(Comparator.comparing(CstComplaintFollowup::getCstCflId))
+                .orElse(null);
+
+        try {
+            // ================= REQUEST ATTACHMENT =================
+            if (requestFile != null && !requestFile.isEmpty()) {
+
+                File requestFolder = new File(REQUEST_DIR);
+                if (!requestFolder.exists()) {
+                    requestFolder.mkdirs();
+                }
+
+                String originalName = requestFile.getOriginalFilename();
+                String safeName = originalName != null ? originalName.replaceAll("\\s+", "_") : "file";
+
+                String requestFileName =
+                        System.currentTimeMillis() + "_REQ_" + UUID.randomUUID() + "_" + safeName;
+
+                File requestDestination = new File(REQUEST_DIR, requestFileName);
+                requestFile.transferTo(requestDestination);
+
+                cstComplaintFollowup.setCstCflRequestAttachment(requestFileName);
+            }
+
+            // ================= SAVE TO DATABASE =================
+            cstComplaintFollowupRepository.save(cstComplaintFollowup);
+            return "Saved";
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error uploading followup attachments: " + e.getMessage(), e);
+        }
     }
 }

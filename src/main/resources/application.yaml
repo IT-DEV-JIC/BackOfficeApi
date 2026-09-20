@@ -1,33 +1,26 @@
 server:
-  port: 8443
-  ssl:
+  error:
+    include-stacktrace: never
+
+  compression:
     enabled: true
-    key-store: classpath:ssl/jicjo.pfx
-    key-store-password: ENC(+iQqAJklVNfB/HKCFFwWF3/UXevyp/+yRIZ+0pgOQvUqsYEuxJfShOzZQX3smaep)
-    key-store-type: PKCS12
-    server:
-      error:
-        include-stacktrace: "never"
-    compression:
-      enabled: true
-      mime-types:
-        - application/json
-        - application/xml
-        - text/html
-        - text/xml
-        - text/plain
-      min-response-size: 1024
+    mime-types:
+      - application/json
+      - application/xml
+      - text/html
+      - text/xml
+      - text/plain
+    min-response-size: 1024
 
   servlet:
     multipart:
       enabled: true
       max-file-size: 1024MB
       max-request-size: 1024MB
-    servlet:
-      encoding:
-        charset: UTF-8
-        enabled: true
-        force: true
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
   tomcat:
     threads:
@@ -39,21 +32,23 @@ server:
     max-http-form-post-size: 20MB
     max-swallow-size: 20MB
     background-processor-delay: 30s
-    http2:
-      enabled: true
-  jvm-arguments:
-    - -Xms32g
-    - -Xmx32g
-
-environment:
-  - JAVA_OPTS=-Xmx32g -Xms32g
 
 spring:
+  profiles:
+    active: dev
+
   application:
     name: JicBackOfficePortal
+
   devtools:
     restart:
       enabled: false
+
+  ai:
+    ollama:
+      base-url: http://10.0.41.141:11434
+      chat:
+        model: qwen3:32b
 
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
@@ -68,15 +63,8 @@ spring:
       max-lifetime: 1200000
       connection-test-query: SELECT 1 FROM DUAL
       data-source-properties:
-        oracle:
-          jdbc:
-            ReadTimeout: 600000
-            ConnectTimeout: 300000
-
-  jasypt:
-    encryptor:
-      algorithm: PBEWITHHMACSHA512ANDAES_256
-      iv-generator-classname: org.jasypt.iv.RandomIvGenerator
+        oracle.jdbc.ReadTimeout: 600000
+        oracle.jdbc.ConnectTimeout: 300000
 
   jdbc:
     core:
@@ -87,6 +75,7 @@ spring:
           - call
 
   jpa:
+    database-platform: org.hibernate.dialect.OracleDialect
     hibernate:
       ddl-auto: none
       naming:
@@ -97,17 +86,32 @@ spring:
         format_sql: true
     open-in-view: false
 
-profiles:
-  active: dev
+  jackson:
+    serialization:
+      write-dates-as-timestamps: false
 
-  ai:
-    openai:
-      api-key: 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
-      chat:
-        options:
-          model: gpt-4o-mini
-          temperature: 0.3
-          max-tokens: 500
+  mvc:
+    async:
+      request-timeout: 300000
+
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 1024MB
+      max-request-size: 1024MB
+
+  session:
+    store-type: redis
+
+  data:
+    redis:
+      host: banca.jicjo.com
+      port: 6379
+
+jasypt:
+  encryptor:
+    algorithm: PBEWITHHMACSHA512ANDAES_256
+    iv-generator-classname: org.jasypt.iv.RandomIvGenerator
 
 logging:
   level:
@@ -115,24 +119,6 @@ logging:
       springframework:
         web: DEBUG
         security: DEBUG
-
-jackson:
-  serialization:
-    write-dates-as-timestamps: false
-
-  mvc:
-    async:
-      request-timeout: 300000 # 30 seconds
-    servlet:
-      async:
-        timeout: 300000
-
-    session:
-      store-type: redis
-      data:
-        redis:
-          host: banca.jicjo.com
-          port: 6379
 
 encryption:
   secret:
@@ -146,4 +132,4 @@ encryption:
     default: aes2
 
 attachments:
-  directory: D:\TomcatApps\Attachments\Attachment
+  directory: D:/TomcatApps/Attachments/Attachment

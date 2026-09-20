@@ -13,7 +13,7 @@ import java.io.Serializable;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/core")
+@RequestMapping("/core")
 public class ReportController implements Serializable {
     private final ExcelExportService service;
 

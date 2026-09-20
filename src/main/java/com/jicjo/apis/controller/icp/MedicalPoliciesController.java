@@ -21,7 +21,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/icp")
+@RequestMapping("/icp")
 @RequiredArgsConstructor
 public class MedicalPoliciesController implements Serializable {
     @Serial

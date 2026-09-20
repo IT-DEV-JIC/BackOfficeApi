@@ -25,7 +25,7 @@ import java.util.Map;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/reports")
+@RequestMapping("/reports")
 public class ReportsManager implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

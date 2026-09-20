@@ -11,7 +11,7 @@ import java.util.Date;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/api/general")
+@RequestMapping("/general")
 public class ClaimsController implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;

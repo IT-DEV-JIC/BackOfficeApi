@@ -17,4 +17,5 @@ public interface CstComplaintFollowupRepository extends JpaRepository<CstComplai
 
     @Query("SELECT C FROM CstComplaintFollowup C WHERE C.cstCmpId = :cstCmpId")
     List<CstComplaintFollowup> findCstComplaintFollowupByCstCmpId(Long cstCmpId);
+
 }
