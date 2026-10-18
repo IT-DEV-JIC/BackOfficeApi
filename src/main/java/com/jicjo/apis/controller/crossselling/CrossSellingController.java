@@ -2,6 +2,7 @@ package com.jicjo.apis.controller.crossselling;
 
 
 import com.jicjo.apis.dto.crossselling.*;
+import com.jicjo.apis.service.crossselling.CrossSellingAiService;
 import com.jicjo.apis.service.crossselling.CrossSellingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,7 +15,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CrossSellingController {
     private final CrossSellingService crossSellingService;
-
+    private final CrossSellingAiService crossSellingAiService;
 
     // ==========================================
     // Candidates
@@ -143,6 +144,34 @@ public class CrossSellingController {
                         request.getWonPolicyId(),
                         request.getWonPolicyNo()
                 );
+
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/customers/{customerId}/ai-analysis")
+    public ResponseEntity<CrossSellingAiResponseDto> analyzeCustomer(
+            @PathVariable Long customerId
+    ) {
+
+        List<CrossSellCandidateDto> candidates =
+                crossSellingService
+                        .getCandidatesByCustomer(customerId);
+
+        if (candidates == null || candidates.isEmpty()) {
+            throw new RuntimeException(
+                    "No cross selling candidates found for customer: "
+                            + customerId
+            );
+        }
+
+        CrossSellingAiRequestDto request =
+                new CrossSellingAiRequestDto(
+                        customerId,
+                        candidates
+                );
+
+        CrossSellingAiResponseDto response =
+                crossSellingAiService.analyze(request);
 
         return ResponseEntity.ok(response);
     }

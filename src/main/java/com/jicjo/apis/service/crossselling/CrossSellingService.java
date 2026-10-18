@@ -69,4 +69,8 @@ public interface CrossSellingService {
             Long wonPolicyId,
             String wonPolicyNo
     );
+
+    List<CrossSellCandidateDto> getCandidatesByCustomer(
+            Long customerId
+    );
 }

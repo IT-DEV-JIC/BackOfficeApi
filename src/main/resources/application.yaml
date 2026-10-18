@@ -105,7 +105,7 @@ spring:
 
   data:
     redis:
-      host: banca.jicjo.com
+      host: portal.jicjo.com
       port: 6379
 
 jasypt:

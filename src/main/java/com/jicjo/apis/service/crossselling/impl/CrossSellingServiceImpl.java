@@ -883,4 +883,20 @@ public class CrossSellingServiceImpl implements CrossSellingService {
         opportunity.setCustomerNameEn(customer.getCustomerNameEn());
         opportunity.setCustomerNameAr(customer.getCustomerNameAr());
     }
+
+    @Override
+    @Transactional(readOnly = true)
+    public List<CrossSellCandidateDto> getCandidatesByCustomer(
+            Long customerId
+    ) {
+
+        if (customerId == null) {
+            throw new RuntimeException(
+                    "Customer ID is required"
+            );
+        }
+
+        return candidateRepository
+                .findCandidatesByCustomerId(customerId);
+    }
 }

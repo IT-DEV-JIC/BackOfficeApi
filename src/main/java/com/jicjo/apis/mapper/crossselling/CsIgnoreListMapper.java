@@ -10,8 +10,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
-@AllArgsConstructor
 public class CsIgnoreListMapper {
 
     public static CsIgnoreListDto toCsIgnoreListDto(CsIgnoreList csIgnoreList){
