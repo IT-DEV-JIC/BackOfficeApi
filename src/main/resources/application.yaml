@@ -46,9 +46,9 @@ spring:
 
   ai:
     ollama:
-      base-url: http://10.0.41.141:11434
+      base-url: http://10.0.41.180:11434
       chat:
-        model: qwen3:32b
+        model: qwen3:30b-a3b
 
   datasource:
     driver-class-name: oracle.jdbc.OracleDriver
