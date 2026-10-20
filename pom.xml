@@ -68,6 +68,12 @@
 			<optional>true</optional>
 		</dependency>
 
+		<dependency>
+			<groupId>org.apache.poi</groupId>
+			<artifactId>poi-ooxml</artifactId>
+			<version>5.4.1</version>
+		</dependency>
+
 		<!-- Optional but recommended -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
